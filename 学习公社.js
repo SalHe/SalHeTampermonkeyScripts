@@ -75,6 +75,7 @@
                 // const url = 'circleIndexRedirect.do?' + window.location.search;
                 const url = localStorage.getItem(KEY_FROM_COURSE_PAGE);
                 window.open(url, '大学生网络党校刷课');
+                clearInterval(timerId);
             }
         }, 1000);
     }
