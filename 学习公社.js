@@ -24,11 +24,13 @@
     if (window.location.pathname == '/circleIndexRedirect.do') {
         // 自动切换到下一个视频
         const timerId = setInterval(() => {
+            let isFound = false;
             const trs = $('#J_myOptionRecords tr.odd, #J_myOptionRecords tr.even');
             if (trs.length > 0) clearInterval(timerId);
             for (let i = 0; i < trs.length; i++) {
                 const element = trs[i];
                 if (element.querySelector('.progressvalue').innerText != '100%') {
+                    isFound = true;
                     localStorage.setItem(KEY_FROM_COURSE_PAGE, window.location.href);
                     element.querySelector('.saveStuCourse').click(); // 打开播放页面
                     if (config.close_course_contents) window.close();
@@ -36,6 +38,10 @@
                     break;
                 }
             }
+            // 这一页都播放完了
+            // 尝试换一页（未测试，不过应该没问题）
+            if (!isFound)
+                $('#J_myOptionRecords_next').click()
         }, 1000);
     } else if (window.location.pathname == '/viewerforccvideo.do') {
         // 观看视频页面
